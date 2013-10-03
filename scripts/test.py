@@ -1,6 +1,9 @@
 #!/usr/bin/python
 
 import random
+import os
+
+set_color = os.getenv("TERM") == "xterm-256color"
 
 
 def test_cards(c):
@@ -65,7 +68,10 @@ def test_rows(c,rows):
 
     for row in rows:
 
-        print "Q: " + row["question"]
+        def try_color_string(color_num, s):
+            return "\033[3" + color_num + "m" + s + "\033[m" if set_color else s
+
+        print try_color_string("1", "Q: " + row["question"])
         print "(press RET to see answer. Other keys ignored, except for 'quit' and 'skip')"
 
         q = raw_input()
@@ -78,7 +84,7 @@ def test_rows(c,rows):
             y_update(row)
             continue
 
-        print "A: " + row["answer"]
+        print try_color_string("4", "A: " + row["answer"])
         print "Got right answer? (%s)" % reduce(lambda s, other: s+"/"+other, answer_query.keys())
         while True:
             q = raw_input()
