@@ -5,6 +5,9 @@ import os
 
 set_color = os.getenv("TERM") == "xterm-256color"
 
+def try_change_font_of_string(color_num, s):
+    return "\033[" + color_num + "m" + s + "\033[m" if set_color else s
+
 
 def test_cards(c):
 
@@ -68,10 +71,7 @@ def test_rows(c,rows):
 
     for row in rows:
 
-        def try_color_string(color_num, s):
-            return "\033[3" + color_num + "m" + s + "\033[m" if set_color else s
-
-        print try_color_string("1", "Q: " + row["question"])
+        print try_change_font_of_string("31", "Q: " + row["question"])
         print "(press RET to see answer. Other keys ignored, except for 'quit' and 'skip')"
 
         q = raw_input()
@@ -80,11 +80,11 @@ def test_rows(c,rows):
         if q == "skip":
             continue
         if q == row["answer"]:
-            print try_color_string("2","CORRECT!")
+            print try_change_font_of_string("32", "CORRECT!")
             y_update(row)
             continue
 
-        print try_color_string("4", "A: " + row["answer"])
+        print try_change_font_of_string("34", "A: " + row["answer"])
         print "Got right answer? (%s)" % reduce(lambda s, other: s+"/"+other, answer_query.keys())
         while True:
             q = raw_input()
