@@ -10,13 +10,13 @@ if __name__ == "__main__":
 
     import sqlite3
     import random
-    from scripts import make_card, test_cards, search_cards
+    from scripts import make_card, test_cards, search_cards, try_change_font_of_string
 
     random.seed()
 
     for tango_file in sys.argv[1:]:
 
-        print "In %s" % tango_file
+        print try_change_font_of_string("1", "In %s" % tango_file)
 
         conn = sqlite3.connect(tango_file)
         conn.text_factory = str
