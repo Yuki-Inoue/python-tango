@@ -80,7 +80,7 @@ def test_rows(c,rows):
         if q == "skip":
             continue
         if q == row["answer"]:
-            print "CORRECT!"
+            print try_color_string("2","CORRECT!")
             y_update(row)
             continue
 
