@@ -5,7 +5,7 @@ from common import try_change_font_of_string
 
 def test_cards(c):
 
-    c.execute("select * from cards_local_view where datetime(nexptime,'utc') < datetime('now')")
+    c.execute("select * from cards_local_view where datetime(nexptime,'utc') <= datetime('now')")
 
     rows = c.fetchall()
     random.shuffle(rows)

@@ -24,7 +24,7 @@ if __name__ == "__main__":
         c = conn.cursor()
 
         def calc_expired():
-            c.execute("select count(*) from cards where nexptime < datetime('now')")
+            c.execute("select count(*) from cards where nexptime <= datetime('now')")
             return c.fetchone()[0]
 
         expired = calc_expired()
